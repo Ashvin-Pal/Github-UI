@@ -1,0 +1,29 @@
+{
+  "favorites": [
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnkxMDYyODk3",
+      "owner": "github",
+      "name": "gitignore"
+    },
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+      "owner": "facebook",
+      "name": "facebook-android-sdk"
+    },
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+      "owner": "facebook",
+      "name": "rocksdb"
+    },
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnkxNTA2Mjg2OQ==",
+      "owner": "facebook",
+      "name": "jest"
+    },
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnkxODUwMzcyMQ==",
+      "owner": "facebook",
+      "name": "yoga"
+    }
+  ]
+}
