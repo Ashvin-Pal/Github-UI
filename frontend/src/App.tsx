@@ -4,6 +4,11 @@ import OrganisationRepos from "./Components/OrganisationRepos";
 import AppBar from "./Components/AppBar";
 import { Grommet, Heading, Main } from "grommet";
 
+//This is the main component. It display the app bar
+//and changes the body based on the route navigated too.
+//It navigates users to the main page and a repository
+//detail page based on the route.
+
 const theme = {
     global: {
         colors: {
