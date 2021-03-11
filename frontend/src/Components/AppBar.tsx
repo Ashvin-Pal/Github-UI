@@ -1,5 +1,7 @@
 import { Box } from "grommet";
 
+// Top bar component.
+
 const AppBar = (props: any) => {
     return (
         <Box
