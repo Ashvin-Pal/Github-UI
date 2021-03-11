@@ -1,6 +1,8 @@
 import { FlowerSpinner } from "react-epic-spinners";
 import { Box } from "grommet";
 
+//This component displays a loading spinner
+
 const LoadingIndicator = () => {
     return (
         <Box alignSelf="center" alignContent="center" margin="xlarge" pad="xlarge">

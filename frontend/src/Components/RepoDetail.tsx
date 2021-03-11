@@ -15,6 +15,11 @@ import LinkNavigationButton from "./LinkNavigationButton";
 import RepoStats from "./RepoStats";
 import ErrorMsg from "./ErrorMsg";
 
+//This component display the a repository in detail.
+//It renders other components to display data.
+//It makes an api call to get data for a specific repository
+//based on the url parameters.
+
 interface Response {
     data: Repo;
     loading: boolean;

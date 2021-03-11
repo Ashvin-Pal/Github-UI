@@ -2,6 +2,9 @@ import { Button, Box } from "grommet";
 import { Previous } from "grommet-icons";
 import { Link } from "react-router-dom";
 
+//This component can beused for a back button. You can
+//pass in a prop with the link to navigate to.
+
 interface IProps {
     linkTo: string;
 }

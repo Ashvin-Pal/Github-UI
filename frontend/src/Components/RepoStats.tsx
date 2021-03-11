@@ -1,6 +1,9 @@
 import { Text, Box } from "grommet";
 import { Star, Bug, Network, Code } from "grommet-icons";
 
+//This components takes porps from a parent component
+//and display the repo statistics.
+
 interface IProps {
     language: string;
     stargazers_count: number;

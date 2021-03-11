@@ -5,6 +5,11 @@ import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 import useFetch from "../hooks/useFetch";
 import { API, buildUrl } from "../config";
 
+//This component is used to a track repo. It send data to
+//the database. It saves data of a specific repository
+//to the database and also deletes if its already save in
+//the database.
+
 interface Response {
     data: {
         nodeId: string;

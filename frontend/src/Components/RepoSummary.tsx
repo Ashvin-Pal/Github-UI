@@ -21,6 +21,8 @@ const RepoSummary = ({
     const removeLinkStyle = { textDecoration: "none", color: "inherit" };
     const lastUpdatedAt = dayjs(updated_at).format("DD/MM/YYYY");
 
+    //This component display a summary of a repository.
+
     return (
         <Link to={repoUrl} style={removeLinkStyle}>
             <Card height="small" width="large" background="light-1" elevation="large">

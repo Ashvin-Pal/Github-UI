@@ -7,6 +7,10 @@ import { Contributor } from "../types/Contributors";
 import ErrorMsg from "./ErrorMsg";
 import UserAvatar from "./UserAvatar";
 
+//This component makes an api call to the most recent contributors to
+//a repository. it renders a list of it. Only the 5 most recent
+//contribution is display.
+
 interface IProps {
     org: string;
     repoName: string;

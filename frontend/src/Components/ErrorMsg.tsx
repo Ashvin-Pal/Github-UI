@@ -1,5 +1,7 @@
 import { Box, Text } from "grommet";
 
+//This component displays an error msg that used thorugh out the app.
+
 const ErrorMsg = () => {
     return (
         <Box width="medium" gap="small" alignSelf="center">

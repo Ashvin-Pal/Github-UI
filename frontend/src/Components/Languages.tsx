@@ -5,6 +5,9 @@ import { API, buildUrl } from "../config";
 import { Card, CardHeader, CardBody, Heading } from "grommet";
 import ErrorMsg from "./ErrorMsg";
 
+//This component display the top 3 languages used by a repository.
+//It makes an api call to get the data.
+
 interface IProps {
     org: string;
     repoName: string;

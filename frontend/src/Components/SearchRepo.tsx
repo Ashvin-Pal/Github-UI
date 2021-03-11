@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Box, TextInput } from "grommet";
 
+//This component is used as a search field. It has an input field
+//which passes data to a parent component for every change to the
+//input field
+
 interface Iprops {
     setSearch: (search: string) => void;
 }

@@ -3,6 +3,9 @@ import { Form, FormField, Box, Button, TextInput, Heading } from "grommet";
 
 import { FormEdit } from "grommet-icons";
 
+//This component has an input field. The user has to clink the submit button
+//to pass the input field data to a parent component
+
 interface IProps {
     org: string;
     setOrg: (org: string) => void;

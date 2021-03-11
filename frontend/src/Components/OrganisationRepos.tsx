@@ -9,6 +9,10 @@ import LoadingIndicator from "./LoadingIndicator";
 import { API, buildUrl } from "../config";
 import SearchRepo from "./SearchRepo";
 
+//This component renders the main page.
+//It makes an api call to get data for an organisation.
+//It is the main page.
+
 interface Response {
     data: RepoList[];
     loading: boolean;

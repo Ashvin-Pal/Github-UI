@@ -7,6 +7,10 @@ import CommitAuthor from "./CommitAuthor";
 import { API, buildUrl } from "../config";
 import ErrorMsg from "./ErrorMsg";
 
+//This component makes an api call to the most recent commits to
+//a repository. it renders a list of it. Only the 5 most recent
+//commits is displayed.
+
 interface IProps {
     org: string;
     repoName: string;
