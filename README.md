@@ -1,4 +1,4 @@
-# Github interview exercise
+# Alternative Github UI
 
 ## Installation
 
