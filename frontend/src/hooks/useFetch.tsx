@@ -15,6 +15,8 @@ const useFetch = (initVal: any, url: string, github = true) => {
     const baseUrl = github ? githubBaseUrl : "";
 
     useEffect(() => {
+        let mounted = true;
+
         const fetchData = async () => {
             setLoading(true);
             setError(false);
@@ -22,17 +24,20 @@ const useFetch = (initVal: any, url: string, github = true) => {
                 const response = await fetch(baseUrl + url, headers);
                 if (response.ok) {
                     const resData = await response.json();
-                    setData(resData);
+                    if (mounted) setData(resData);
                 } else {
-                    setError(true);
+                    throw response;
                 }
             } catch (error) {
-                setError(true);
+                if (mounted) setError(true);
             } finally {
-                setLoading(false);
+                if (mounted) setLoading(false);
             }
         };
         fetchData();
+        return () => {
+            mounted = false;
+        };
     }, [url, baseUrl]);
     return { data, loading, error };
 };
