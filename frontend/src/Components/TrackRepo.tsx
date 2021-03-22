@@ -4,6 +4,7 @@ import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 
 import useFetch from "../hooks/useFetch";
 import { API, buildUrl } from "../config";
+import ErrorMsg from "./ErrorMsg";
 
 //This component is used to a track repo. It send data to
 //the database. It saves data of a specific repository
@@ -29,7 +30,7 @@ const TrackRepo = ({ nodeId, owner, name }: IProps) => {
     const url = buildUrl(API.REPO, {
         nodeId,
     });
-    const { data, loading }: Response = useFetch({}, url, false);
+    const { data, loading, error }: Response = useFetch({}, url, false);
     const [tracked, setTracked] = React.useState(false);
     const [disable, setDisable] = React.useState(false);
 
@@ -85,17 +86,27 @@ const TrackRepo = ({ nodeId, owner, name }: IProps) => {
         }
     };
 
-    return loading ? (
-        <CirclesToRhombusesSpinner color="brand" />
-    ) : tracked ? (
-        <Button
-            primary
-            label={"Unfollow Repository"}
-            color={"Brand"}
-            onClick={deleteRepo}
-            disabled={disable}
-        />
-    ) : (
+    if (loading) {
+        return <CirclesToRhombusesSpinner color="black" />;
+    }
+
+    if (error) {
+        return <ErrorMsg />;
+    }
+
+    if (tracked) {
+        return (
+            <Button
+                primary
+                label={"Unfollow Repository"}
+                color={"Brand"}
+                onClick={deleteRepo}
+                disabled={disable}
+            />
+        );
+    }
+
+    return (
         <Button
             primary
             label={"Follow Repository"}
