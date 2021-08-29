@@ -7,7 +7,7 @@ const headers = {
     },
 };
 
-const useFetch = (initVal: any, url: string, github = true) => {
+export const useFetch = (initVal: any, url: string, github = true) => {
     const [data, setData] = useState(initVal);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -42,4 +42,3 @@ const useFetch = (initVal: any, url: string, github = true) => {
     return { data, loading, error };
 };
 
-export default useFetch;
