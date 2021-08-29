@@ -2,18 +2,18 @@ import { Heading, Card, CardHeader, CardBody, CardFooter, Text, Box, Anchor } fr
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 
-import { API, buildUrl } from "../config";
-import { Repo } from "../types/Repo";
-import useFetch from "../hooks/useFetch";
-import LoadingIndicator from "./LoadingIndicator";
-import TrackRepo from "./TrackRepo";
-import Contributors from "./Contributors";
-import Languages from "./Languages";
-import Commits from "./Commits";
-import UserAvatar from "./UserAvatar";
-import LinkNavigationButton from "./LinkNavigationButton";
-import RepoStats from "./RepoStats";
-import ErrorMsg from "./ErrorMsg";
+import { API, buildUrl } from "../../config";
+import { Repo } from "../../types/Repo";
+import {useFetch} from "../../hooks";
+import LoadingIndicator from "../../Components/LoadingIndicator";
+import TrackRepo from "../../Components/TrackRepo";
+import Contributors from "../../Components/Contributors";
+import Languages from "../../Components/Languages";
+import Commits from "../../Components/Commits";
+import UserAvatar from "../../Components/UserAvatar";
+import LinkNavigationButton from "../../Components/LinkNavigationButton";
+import RepoStats from "../../Components/RepoStats";
+import ErrorMsg from "../../Components/ErrorMsg";
 
 //This component display the a repository in detail.
 //It renders other components to display data.

@@ -1,17 +1,14 @@
 import * as React from "react";
 import { Box, Text } from "grommet";
 
-import useFetch from "../hooks/useFetch";
-import { RepoList } from "../types/RepoList";
-import RepoSummary from "./RepoSummary";
-import SearchOrg from "./SearchOrg";
-import LoadingIndicator from "./LoadingIndicator";
-import { API, buildUrl } from "../config";
-import SearchRepo from "./SearchRepo";
+import {useFetch} from "../../hooks";
+import { RepoList } from "../../types/RepoList";
+import RepoSummary from "../../Components/RepoSummary";
+import SearchOrg from "../../Components/SearchOrg";
+import LoadingIndicator from "../../Components/LoadingIndicator";
+import { API, buildUrl } from "../../config";
+import SearchRepo from "../../Components/SearchRepo";
 
-//This component renders the main page.
-//It makes an api call to get data for an organisation.
-//It is the main page.
 
 interface Response {
     data: RepoList[];
@@ -35,9 +32,8 @@ const OrganisationRepos = () => {
     }, [org]);
 
     //Function that sorts an array of objects by most recent date.
-    const sortMostRecent = (a: RepoList[]) => {
-        return a.sort((a, b) => +new Date(b.updated_at) - +new Date(a.updated_at));
-    };
+    const sortMostRecent = (a: RepoList[]) => a.sort((a, b) => +new Date(b.updated_at) - +new Date(a.updated_at));
+    
 
     //Function used to filter an array for by object keys
     const searchRepos = (val: RepoList[], searchVal: string) => {
@@ -48,6 +44,7 @@ const OrganisationRepos = () => {
             return null;
         });
     };
+
 
     return loading ? (
         <LoadingIndicator />
