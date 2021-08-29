@@ -1,7 +1,7 @@
 import { Box, Heading } from "grommet";
 import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 
-import useFetch from "../hooks/useFetch";
+import {useFetch} from "../hooks";
 import { Commiter } from "../types/Commits";
 import CommitAuthor from "./CommitAuthor";
 import { API, buildUrl } from "../config";

@@ -1,6 +1,6 @@
 import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 
-import useFetch from "../hooks/useFetch";
+import {useFetch} from "../hooks";
 import { API, buildUrl } from "../config";
 import { Card, CardHeader, CardBody, Heading } from "grommet";
 import ErrorMsg from "./ErrorMsg";
