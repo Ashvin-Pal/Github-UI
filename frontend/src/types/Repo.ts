@@ -78,7 +78,7 @@ export interface Repo {
     updated_at: string;
     permissions: Permissions;
     allow_rebase_merge: boolean;
-    template_repository: Parent;
+    template_repository: repoParent;
     temp_clone_token: string;
     allow_squash_merge: boolean;
     delete_branch_on_merge: boolean;
@@ -87,8 +87,8 @@ export interface Repo {
     network_count: number;
     license: License;
     organization: Organization;
-    parent: Parent;
-    source: Parent;
+    parent: repoParent;
+    source: repoParent;
 }
 
 export interface License {
@@ -121,7 +121,7 @@ export interface Organization {
     site_admin: boolean;
 }
 
-export interface Parent {
+export interface repoParent {
     id: number;
     node_id: string;
     name: string;

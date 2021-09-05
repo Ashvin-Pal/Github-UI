@@ -1,8 +1,8 @@
 import { Card, CardHeader, CardBody, Heading } from "grommet";
 import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 
-import {useFetch} from "../hooks";
-import { API, buildUrl } from "../config";
+import { useFetch } from "../hooks";
+import { API_GITHUB, builGithubUrl } from "../config";
 import { Contributor } from "../types/Contributors";
 import ErrorMsg from "./ErrorMsg";
 import UserAvatar from "./UserAvatar";
@@ -23,14 +23,18 @@ interface Response {
 }
 
 const Contributors = ({ org, repoName }: IProps) => {
-    const url = buildUrl(API.CONTRIBUTORS, { org, repoName });
+    const url = builGithubUrl(API_GITHUB.CONTRIBUTORS, { org, repoName });
     const { data, loading, error }: Response = useFetch([], url);
 
-    return loading ? (
-        <CirclesToRhombusesSpinner color="brand" />
-    ) : error ? (
-        <ErrorMsg />
-    ) : (
+    if (loading) {
+        return <CirclesToRhombusesSpinner color="brand" />;
+    }
+
+    if (error) {
+        return <ErrorMsg />;
+    }
+
+    return (
         <Card pad="small" width="small" height="small" background="light-1" elevation="large">
             <CardHeader alignSelf="start" pad="xsmall">
                 <Heading level="4" margin="none">

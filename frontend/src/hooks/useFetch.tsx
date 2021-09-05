@@ -1,44 +1,28 @@
 import { useState, useEffect } from "react";
-import { githubBaseUrl } from "../config";
+import { GITHUB_HEADERS } from "../config";
+import { fetcherGet, tryThis } from "../helpers";
 
-const headers = {
-    headers: {
-        Accept: "application/vnd.github.v3+json",
-    },
-};
-
-export const useFetch = (initVal: any, url: string, github = true) => {
+export const useFetch = (initVal: any, url: string) => {
     const [data, setData] = useState(initVal);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    const baseUrl = github ? githubBaseUrl : "";
-
     useEffect(() => {
         let mounted = true;
 
-        const fetchData = async () => {
-            setLoading(true);
+        (async () => {
             setError(false);
-            try {
-                const response = await fetch(baseUrl + url, headers);
-                if (response.ok) {
-                    const resData = await response.json();
-                    if (mounted) setData(resData);
-                } else {
-                    throw response;
-                }
-            } catch (error) {
-                if (mounted) setError(true);
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        };
-        fetchData();
+            setLoading(true);
+            const [result, fetchError] = await tryThis(fetcherGet(url, { ...GITHUB_HEADERS }));
+            if (mounted && result) setData(result);
+            if (mounted && fetchError) setError(true);
+            if (mounted) setLoading(false);
+        })();
+
         return () => {
             mounted = false;
         };
-    }, [url, baseUrl]);
+    }, [url]);
+
     return { data, loading, error };
 };
-

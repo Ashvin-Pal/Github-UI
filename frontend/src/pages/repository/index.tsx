@@ -2,18 +2,19 @@ import { Heading, Card, CardHeader, CardBody, CardFooter, Text, Box, Anchor } fr
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 
-import { API, buildUrl } from "../../config";
+import { API_GITHUB, APP_ROUTE, builGithubUrl } from "../../config";
 import { Repo } from "../../types/Repo";
-import {useFetch} from "../../hooks";
-import LoadingIndicator from "../../Components/LoadingIndicator";
-import TrackRepo from "../../Components/TrackRepo";
-import Contributors from "../../Components/Contributors";
-import Languages from "../../Components/Languages";
-import Commits from "../../Components/Commits";
-import UserAvatar from "../../Components/UserAvatar";
-import LinkNavigationButton from "../../Components/LinkNavigationButton";
-import RepoStats from "../../Components/RepoStats";
-import ErrorMsg from "../../Components/ErrorMsg";
+import { useFetch } from "../../hooks";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import TrackRepo from "../../components/TrackRepo";
+import Contributors from "../../components/Contributors";
+import Languages from "../../components/Languages";
+import Commits from "../../components/Commits";
+import UserAvatar from "../../components/UserAvatar";
+import LinkNavigationButton from "../../components/LinkNavigationButton";
+import RepoStats from "../../components/RepoStats";
+import ErrorMsg from "../../components/ErrorMsg";
+import { dataFormatter } from "../../helpers";
 
 //This component display the a repository in detail.
 //It renders other components to display data.
@@ -33,21 +34,26 @@ interface Urlparams {
 
 const RepoDetail = () => {
     const { org, repoName } = useParams<Urlparams>();
-    const url = buildUrl(API.REPO_DETAIL, {
+    const url = builGithubUrl(API_GITHUB.REPO_DETAIL, {
         org,
         repoName,
     });
+
     const { data: repo, loading, error }: Response = useFetch({}, url);
 
     const textMargin = { top: "medium", bottom: "medium" };
 
-    return loading ? (
-        <LoadingIndicator />
-    ) : error ? (
-        <ErrorMsg />
-    ) : (
+    if (loading) {
+        return <LoadingIndicator />;
+    }
+
+    if (error) {
+        return <ErrorMsg />;
+    }
+
+    return (
         <Box align="center" animation="fadeIn">
-            <LinkNavigationButton linkTo="/" />
+            <LinkNavigationButton linkTo={APP_ROUTE.HOME} />
             <Box direction="row" gap="small">
                 <Box direction="column" gap="small">
                     <Contributors repoName={repo.name} org={repo.owner.login} />
@@ -80,7 +86,7 @@ const RepoDetail = () => {
                         />
                     </CardBody>
                     <CardFooter pad={{ horizontal: "medium" }} background="light-2">
-                        <Text>Updated on {dayjs(repo.updated_at).format("DD/MM/YYYY")}</Text>
+                        <Text>Updated on {dataFormatter(repo.updated_at)}</Text>
                         <RepoStats {...repo} />
                     </CardFooter>
                 </Card>

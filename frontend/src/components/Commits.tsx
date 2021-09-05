@@ -1,17 +1,17 @@
 import { Box, Heading } from "grommet";
 import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 
-import {useFetch} from "../hooks";
+import { useFetch } from "../hooks";
 import { Commiter } from "../types/Commits";
 import CommitAuthor from "./CommitAuthor";
-import { API, buildUrl } from "../config";
+import { API_GITHUB, builGithubUrl } from "../config";
 import ErrorMsg from "./ErrorMsg";
 
 //This component makes an api call to the most recent commits to
 //a repository. it renders a list of it. Only the 5 most recent
 //commits is displayed.
 
-interface IProps {
+interface iProps {
     org: string;
     repoName: string;
 }
@@ -22,15 +22,15 @@ interface Response {
     error?: boolean;
 }
 
-const Commits = ({ org, repoName }: IProps) => {
-    const url = buildUrl(API.COMMITS, { org, repoName });
+const Commits = ({ org, repoName }: iProps) => {
+    const url = builGithubUrl(API_GITHUB.COMMITS, { org, repoName });
     const { data, loading, error }: Response = useFetch([], url);
 
-    return loading ? (
-        <CirclesToRhombusesSpinner color="brand" />
-    ) : error ? (
-        <ErrorMsg />
-    ) : (
+    if (loading) return <CirclesToRhombusesSpinner color="brand" />;
+
+    if (error) return <ErrorMsg />;
+
+    return (
         <Box width="medium" gap="small">
             <Heading level="4" margin="none">
                 Latest commits

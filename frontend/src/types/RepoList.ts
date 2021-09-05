@@ -73,12 +73,12 @@ export interface RepoList {
     pushed_at: string;
     created_at: string;
     updated_at: string;
-    permissions: Permissions;
+    permissions: listPermissions;
     template_repository?: RepoList;
     forks?: number;
     watchers?: number;
     open_issues?: number;
-    license?: License;
+    license?: listLicense;
     allow_rebase_merge?: boolean;
     temp_clone_token?: string;
     allow_squash_merge?: boolean;
@@ -88,7 +88,7 @@ export interface RepoList {
     network_count?: number;
 }
 
-export interface License {
+export interface listLicense {
     key: string;
     name: string;
     url: string;
@@ -118,7 +118,7 @@ export interface Owner {
     site_admin: boolean;
 }
 
-export interface Permissions {
+export interface listPermissions {
     admin: boolean;
     push: boolean;
     pull: boolean;

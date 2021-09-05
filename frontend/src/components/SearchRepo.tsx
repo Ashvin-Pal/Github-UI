@@ -5,21 +5,17 @@ import { Box, TextInput } from "grommet";
 //which passes data to a parent component for every change to the
 //input field
 
-interface Iprops {
+interface iProps {
     setSearch: (search: string) => void;
 }
 
-const SearchRepo = ({ setSearch }: Iprops) => {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setSearch(e.target.value);
-    };
-
+const SearchRepo = ({ setSearch }: iProps) => {
     return (
         <Box width="large" alignSelf="center" height="xsmall" animation="fadeIn">
             <TextInput
                 id="text-input-id"
                 name="name"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search for a repository"
             />
         </Box>

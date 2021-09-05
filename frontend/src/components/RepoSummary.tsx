@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text } from "grommet";
 
 import { RepoList } from "../types/RepoList";
-import dayjs from "dayjs";
 import RepoStats from "./RepoStats";
+import { buildRoute, APP_ROUTE } from "../config/routes";
+import { dataFormatter } from "../helpers";
 
 const RepoSummary = ({
     name,
@@ -15,12 +16,10 @@ const RepoSummary = ({
     language,
     updated_at,
 }: RepoList) => {
-    const repoUrl = `/${login}/${name}`;
+    const repoUrl = buildRoute(APP_ROUTE.REPO_DETAIL, { org: login, repoName: name });
     //Styles
     const cardHeaderPad = { top: "small", bottom: "none", left: "medium", right: "none" };
     const removeLinkStyle = { textDecoration: "none", color: "inherit" };
-    const lastUpdatedAt = dayjs(updated_at).format("DD/MM/YYYY");
-
     //This component display a summary of a repository.
 
     return (
@@ -33,7 +32,7 @@ const RepoSummary = ({
                 </CardHeader>
                 <CardBody pad="medium">{description}</CardBody>
                 <CardFooter pad={{ horizontal: "small" }} background="light-2">
-                    <Text>Updated on {lastUpdatedAt}</Text>
+                    <Text>Updated on {dataFormatter(updated_at)}</Text>
                     <RepoStats
                         forks_count={forks_count}
                         language={language}

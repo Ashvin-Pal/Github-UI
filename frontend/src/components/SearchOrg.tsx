@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { Form, FormField, Box, Button, TextInput, Heading } from "grommet";
 
 import { FormEdit } from "grommet-icons";
@@ -13,33 +13,39 @@ interface IProps {
 }
 
 const SearchOrg = ({ title, org, setOrg }: IProps) => {
-    const [value, setValue] = React.useState(org);
-    const [edit, setEdit] = React.useState(true);
+    const [value, setValue] = useState(org);
+    const [edit, setEdit] = useState(true);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setValue(e.target.value);
-    };
     const handleSubmit = () => {
-        if (value !== "") {
+        if (value) {
             setEdit(!edit);
             setOrg(value);
         }
     };
 
-    return edit ? (
-        <Box direction="row" height="small" alignSelf="center" margin="medium" animation="fadeIn">
-            <Heading alignSelf="center" level="2">
-                {value}
-            </Heading>
-            <Button
+    if (edit) {
+        return (
+            <Box
+                direction="row"
+                height="small"
                 alignSelf="center"
-                focusIndicator={false}
-                icon={<FormEdit color="green" size="medium" />}
-                onClick={() => setEdit(!edit)}
-                hoverIndicator
-            />
-        </Box>
-    ) : (
+                margin="medium"
+                animation="fadeIn"
+            >
+                <Heading alignSelf="center" level="2">
+                    {value}
+                </Heading>
+                <Button
+                    alignSelf="center"
+                    focusIndicator={false}
+                    icon={<FormEdit color="green" size="medium" />}
+                    onClick={() => setEdit(!edit)}
+                    hoverIndicator
+                />
+            </Box>
+        );
+    }
+    return (
         <Box width="large" alignSelf="center" margin="medium" height="small" animation="fadeIn">
             <Form onReset={() => setValue("")} onSubmit={handleSubmit}>
                 <FormField name="name" htmlFor="text-input-id" label={title}>
@@ -47,7 +53,7 @@ const SearchOrg = ({ title, org, setOrg }: IProps) => {
                         id="text-input-id"
                         value={value}
                         name="name"
-                        onChange={(e) => handleChange(e)}
+                        onChange={(e) => setValue(e.target.value)}
                     />
                 </FormField>
                 <Box direction="row" gap="medium">

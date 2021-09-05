@@ -1,16 +1,13 @@
-import { Route } from "react-router-dom";
 import { Grommet, Heading, Main } from "grommet";
 
-import OrganisationRepos from "./pages/home";
-import RepoDetail from "./pages/repository";
-import AppBar from "./Components/AppBar";
-import { APP_THEME } from "./theme";
+import AppBar from "./components/AppBar";
+import Routes from "./routes";
+import { APP_THEME } from "./config/theme";
 
 //This is the main component. It display the app bar
 //and changes the body based on the route navigated too.
 //It navigates users to the main page and a repository
 //detail page based on the route.
-
 
 const App = () => {
     return (
@@ -21,8 +18,7 @@ const App = () => {
                 </Heading>
             </AppBar>
             <Main margin="small" pad="medium" alignContent="center">
-                <Route exact path="/" render={() => <OrganisationRepos />} />
-                <Route exact path="/:org/:repoName" render={() => <RepoDetail />} />
+                <Routes />
             </Main>
         </Grommet>
     );
