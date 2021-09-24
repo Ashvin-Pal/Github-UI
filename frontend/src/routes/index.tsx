@@ -6,7 +6,6 @@ import { APP_ROUTE } from "../config";
 
 /**
  * This file lists all the routes within this SPA.
- * @returns
  */
 
 const Routes = () => {

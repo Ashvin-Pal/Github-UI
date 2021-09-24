@@ -12,51 +12,49 @@ app.use(express.static(BUILD_PATH));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/api/favorites/:nodeId", function (req, res, next) {
+app.get("/api/favorites/:nodeId", async (req, res, next) => {
     // if favorite not found, return 404, but if delete successful, return 200
     const nodeId = req.params.nodeId;
     const isDetails = Boolean(nodeId);
-    res.writeHead(200, { "Content-Type": "application/json" });
     if (isDetails) {
         const favorite = findFavorite(nodeId);
-        res.write(JSON.stringify({ ...favorite }));
+        return res.status(200).json({ ...favorite });
     } else {
         const favorites = getFavorites();
-        res.write(JSON.stringify(favorites));
+        return res.status(200).json({ ...favorites });
     }
-    res.end();
 });
 
-app.put("/api/favorites/:nodeId", function (req, res, next) {
+app.put("/api/favorites/:nodeId", async (req, res, next) => {
     // if favorite not found, return 404, but if delete successful, return 200
     const favorite = req.body;
-    addFavorite(favorite);
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.write(JSON.stringify({ response: "Succesfull" }));
-    res.end();
-    next();
+
+    try {
+        const result = await addFavorite(favorite);
+        res.status(201).json("OK");
+    } catch (error) {
+        res.status(400).json(error);
+    }
 });
 
 app.delete("/api/favorites/:nodeId", function (req, res, next) {
     // if favorite not found, return 404, but if delete successful, return 200
     const nodeId = req.params.nodeId;
     const isDetails = Boolean(nodeId);
+
     if (isDetails) {
         const favorite = findFavorite(nodeId);
         if (favorite) {
             removeFavorite(nodeId);
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.write(JSON.stringify({ data: "Succesfull" }));
+            res.status(200).json("OK");
+            return;
         } else {
-            res.writeHead(404, { "Content-Type": "application/json" });
-            res.write(JSON.stringify({ data: "Unsuccesfull" }));
+            res.status(404).json({ message: "cant delete resource as it does not exists" });
+            return;
         }
-    } else {
-        res.writeHead(404, { "Content-Type": "application/json" });
-        res.write(JSON.stringify({ data: "Unsuccesfull" }));
     }
-    res.end();
-    next();
+
+    res.status(400).json({ message: "node id is empty" });
 });
 
 app.get("*", function (request, response) {
@@ -64,3 +62,5 @@ app.get("*", function (request, response) {
 });
 
 app.listen(9001);
+
+export const ERROR_MSG = {};

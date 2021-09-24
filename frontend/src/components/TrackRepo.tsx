@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "grommet";
 import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 
-import { useFetch } from "../hooks";
+import { useFetch, useTrackRepo, useUntrackRepo } from "../hooks";
 import { API, buildApiUrl } from "../config";
 import ErrorMsg from "./ErrorMsg";
-import { fetcherDelete, fetcherPut, tryThis } from "../helpers";
 
 //This component is used to a track repo. It send data to
 //the database. It saves data of a specific repository
@@ -29,32 +28,29 @@ interface iProps {
 
 const TrackRepo = ({ nodeId, owner, name }: iProps) => {
     const url = buildApiUrl(API.REPO, { nodeId });
-    const { data, loading, error }: Response = useFetch({}, url);
+    const { data, error, loading }: Response = useFetch({}, url);
+
     const [tracked, setTracked] = useState(false);
-    const [disable, setDisable] = useState(false);
+
+    const handleTrackSucess = useCallback(() => setTracked(true), []);
+    const handleUntrackSucess = useCallback(() => setTracked(false), []);
+
+    const handleError = useCallback(() => setTracked(false), []);
+
+    const [handleSave, isSaving] = useTrackRepo(handleTrackSucess, handleError);
+    const [handleDelete, isDeleting] = useUntrackRepo(handleUntrackSucess, handleError);
 
     useEffect(() => {
-        if (data?.nodeId) setTracked(true);
+        if (Object.keys(data).length) setTracked(true);
     }, [data]);
 
     //Saves a repo that a user wants to track in the database
-    const saveRepo = async () => {
-        const repoDetails = { nodeId, owner, name };
-        setDisable(true);
-        const [result, putError] = await tryThis(fetcherPut(url, repoDetails));
-        setTracked(true);
-        setDisable(false);
-    };
+    const handleTrackRepo = () => handleSave({ nodeId, owner, name });
 
     //Deletes a tracked repo for the database
-    const deleteRepo = async () => {
-        setDisable(true);
-        const [result, putError] = await tryThis(fetcherDelete(url));
-        setTracked(false);
-        setDisable(false);
-    };
+    const handleUntrackRepo = () => handleDelete({ nodeId });
 
-    if (loading) {
+    if (loading || isSaving || isDeleting) {
         return <CirclesToRhombusesSpinner color="black" />;
     }
 
@@ -68,8 +64,8 @@ const TrackRepo = ({ nodeId, owner, name }: iProps) => {
                 primary
                 label={"Unfollow Repository"}
                 color={"Brand"}
-                onClick={deleteRepo}
-                disabled={disable}
+                onClick={handleUntrackRepo}
+                disabled={false}
             />
         );
     }
@@ -79,8 +75,8 @@ const TrackRepo = ({ nodeId, owner, name }: iProps) => {
             primary
             label={"Follow Repository"}
             color={"black"}
-            onClick={saveRepo}
-            disabled={disable}
+            onClick={handleTrackRepo}
+            disabled={false}
         />
     );
 };
