@@ -5,6 +5,7 @@ import { CirclesToRhombusesSpinner } from "react-epic-spinners";
 import { useFetch, useTrackRepo, useUntrackRepo } from "../hooks";
 import { API, buildApiUrl } from "../config";
 import ErrorMsg from "./ErrorMsg";
+import { Repo } from "../types";
 
 //This component is used to a track repo. It send data to
 //the database. It saves data of a specific repository
@@ -20,13 +21,8 @@ interface Response {
     loading: boolean;
     error: boolean;
 }
-interface iProps {
-    nodeId: string;
-    owner: string;
-    name: string;
-}
 
-const TrackRepo = ({ nodeId, owner, name }: iProps) => {
+const TrackRepo = ({ node_id: nodeId, owner: { login }, name }: Repo) => {
     const url = buildApiUrl(API.REPO, { nodeId });
     const { data, error, loading }: Response = useFetch({}, url);
 
@@ -45,7 +41,7 @@ const TrackRepo = ({ nodeId, owner, name }: iProps) => {
     }, [data]);
 
     //Saves a repo that a user wants to track in the database
-    const handleTrackRepo = () => handleSave({ nodeId, owner, name });
+    const handleTrackRepo = () => handleSave({ nodeId, owner: login, name });
 
     //Deletes a tracked repo for the database
     const handleUntrackRepo = () => handleDelete({ nodeId });

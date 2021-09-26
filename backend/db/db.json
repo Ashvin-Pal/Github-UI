@@ -16,19 +16,9 @@
       "name": "rocksdb"
     },
     {
-      "nodeId": "MDEwOlJlcG9zaXRvcnkxNTA2Mjg2OQ==",
-      "owner": "facebook",
-      "name": "jest"
-    },
-    {
       "nodeId": "MDEwOlJlcG9zaXRvcnkxODUwMzcyMQ==",
       "owner": "facebook",
       "name": "yoga"
-    },
-    {
-      "nodeId": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
-      "owner": "facebook",
-      "name": "react"
     },
     {
       "nodeId": "MDEwOlJlcG9zaXRvcnk2Njk0Nzcz",
@@ -39,6 +29,21 @@
       "nodeId": "MDEwOlJlcG9zaXRvcnk5MDYwMzQ3",
       "owner": "google",
       "name": "traceur-compiler"
+    },
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnk3OTY4NDE3",
+      "owner": "google",
+      "name": "dagger"
+    },
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnkyMTg0MTM4MQ==",
+      "owner": "hello",
+      "name": "suripu-ios"
+    },
+    {
+      "nodeId": "MDEwOlJlcG9zaXRvcnkxNTA2Mjg2OQ==",
+      "owner": "facebook",
+      "name": "jest"
     }
   ]
 }

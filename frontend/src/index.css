@@ -1,3 +1,22 @@
 body {
     margin: 0;
 }
+
+.Contributors-Avatars {
+    display: grid;
+    overflow: hidden;
+    margin: 0;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.Commits-Authors {
+    width: 100%;
+    padding: 1rem 0 1rem 0;
+    gap: 1rem;
+    display: grid;
+    overflow: hidden;
+    margin: 0;
+    grid-template-rows: repeat(5, 1fr);
+}

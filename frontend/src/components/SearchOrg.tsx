@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, FormField, Box, Button, TextInput, Heading } from "grommet";
+import { motion } from "framer-motion";
 
 import { FormEdit } from "grommet-icons";
 
@@ -14,16 +15,22 @@ interface IProps {
 
 const SearchOrg = ({ title, org, setOrg }: IProps) => {
     const [value, setValue] = useState(org);
-    const [edit, setEdit] = useState(true);
+    const [isEditing, setEditing] = useState(true);
+
+    const handleClick = () => setEditing(!isEditing);
+
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
+
+    const handleReset = () => setValue("");
 
     const handleSubmit = () => {
         if (value) {
-            setEdit(!edit);
+            setEditing(!isEditing);
             setOrg(value);
         }
     };
 
-    if (edit) {
+    if (isEditing) {
         return (
             <Box
                 direction="row"
@@ -39,7 +46,7 @@ const SearchOrg = ({ title, org, setOrg }: IProps) => {
                     alignSelf="center"
                     focusIndicator={false}
                     icon={<FormEdit color="green" size="medium" />}
-                    onClick={() => setEdit(!edit)}
+                    onClick={handleClick}
                     hoverIndicator
                 />
             </Box>
@@ -47,13 +54,13 @@ const SearchOrg = ({ title, org, setOrg }: IProps) => {
     }
     return (
         <Box width="large" alignSelf="center" margin="medium" height="small" animation="fadeIn">
-            <Form onReset={() => setValue("")} onSubmit={handleSubmit}>
+            <Form onReset={handleReset} onSubmit={handleSubmit}>
                 <FormField name="name" htmlFor="text-input-id" label={title}>
                     <TextInput
                         id="text-input-id"
                         value={value}
                         name="name"
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={handleInput}
                     />
                 </FormField>
                 <Box direction="row" gap="medium">

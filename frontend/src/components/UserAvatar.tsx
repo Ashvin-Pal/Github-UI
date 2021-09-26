@@ -9,9 +9,9 @@ interface Iprops {
 const UserAvatar = ({ url }: Iprops) => {
     if (url) {
         return <Avatar src={url} />;
-    } else {
-        return <Avatar background="brand"></Avatar>;
     }
+
+    return <Avatar background="brand"></Avatar>;
 };
 
 export default UserAvatar;

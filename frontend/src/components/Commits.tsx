@@ -1,5 +1,6 @@
 import { Box, Heading } from "grommet";
 import { CirclesToRhombusesSpinner } from "react-epic-spinners";
+import { motion } from "framer-motion";
 
 import { useFetch } from "../hooks";
 import { Commiter } from "../types/Commits";
@@ -22,6 +23,26 @@ interface Response {
     error?: boolean;
 }
 
+const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2,
+        },
+    },
+};
+
+const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+    },
+};
+
 const Commits = ({ org, repoName }: iProps) => {
     const url = builGithubUrl(API_GITHUB.COMMITS, { org, repoName });
     const { data, loading, error }: Response = useFetch([], url);
@@ -35,9 +56,18 @@ const Commits = ({ org, repoName }: iProps) => {
             <Heading level="4" margin="none">
                 Latest commits
             </Heading>
-            {data.splice(0, 5).map((author) => (
-                <CommitAuthor key={author.node_id} {...author} />
-            ))}
+            <motion.div
+                className="Commits-Authors"
+                variants={container}
+                initial="hidden"
+                animate="visible"
+            >
+                {data.splice(0, 5).map((author) => (
+                    <motion.div key={author.node_id} className="item" variants={item}>
+                        <CommitAuthor {...author} />
+                    </motion.div>
+                ))}
+            </motion.div>
         </Box>
     );
 };

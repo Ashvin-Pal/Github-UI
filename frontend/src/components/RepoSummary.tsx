@@ -32,7 +32,7 @@ const RepoSummary = ({
                 </CardHeader>
                 <CardBody pad="medium">{description}</CardBody>
                 <CardFooter pad={{ horizontal: "small" }} background="light-2">
-                    <Text>Updated on {dataFormatter(updated_at)}</Text>
+                    <Text>Updated {dataFormatter(updated_at)}</Text>
                     <RepoStats
                         forks_count={forks_count}
                         language={language}

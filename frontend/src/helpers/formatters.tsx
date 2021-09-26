@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 /**
  *  This function takes a timestamp a returns it back in a readable formate of
@@ -7,5 +9,5 @@ import dayjs from "dayjs";
  * @returns return the data in this format > Aug 29 2021
  */
 export const dataFormatter = (date: string) => {
-    return dayjs(date).format("MMM D YYYY");
+    return dayjs(date).fromNow();
 };

@@ -4,6 +4,7 @@ import { Card, CardHeader, CardBody, Heading } from "grommet";
 import { useFetch } from "../hooks";
 import { API_GITHUB, builGithubUrl } from "../config";
 import ErrorMsg from "./ErrorMsg";
+import { motion } from "framer-motion";
 
 //This component display the top 3 languages used by a repository.
 //It makes an api call to get the data.
@@ -22,6 +23,26 @@ interface Response {
 interface Language {
     [key: string]: { prop: number };
 }
+
+const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2,
+        },
+    },
+};
+
+const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+    },
+};
 
 const Languages = ({ org, repoName }: IProps) => {
     const url = builGithubUrl(API_GITHUB.LANGUAGES, { org, repoName });
@@ -43,13 +64,15 @@ const Languages = ({ org, repoName }: IProps) => {
                 </Heading>
             </CardHeader>
             <CardBody wrap alignSelf="start" alignContent="start" pad="xsmall">
-                <ul>
+                <motion.ul variants={container} initial="hidden" animate="visible">
                     {Object.keys(data)
                         .splice(0, 3)
                         .map((lan: string) => (
-                            <li key={lan}>{lan}</li>
+                            <motion.li key={lan} variants={item}>
+                                {lan}
+                            </motion.li>
                         ))}
-                </ul>
+                </motion.ul>
             </CardBody>
         </Card>
     );
